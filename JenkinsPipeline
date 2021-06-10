@@ -1,0 +1,23 @@
+pipeline{
+    agent any
+    tools{
+        maven 'Maven'
+    }
+    
+    stages{
+        stage('SCM'){
+            steps{
+                git branch: 'main',
+                credentialsId: 'GitLogin',
+                url: 'https://github.com/lhmascot/MyFirstRepo.git'
+            }
+        }
+        
+        stage ('Maven Build'){
+            steps{
+                sh "mvn clean package"
+            }
+            
+        }
+    }
+}
